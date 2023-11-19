@@ -10,7 +10,7 @@ public class ResourcesClientes {
         jsonObject.addProperty("variables", 2);
         jsonObject.addProperty("variable1", "servicio");
         jsonObject.addProperty("valor1", "votar");
-        jsonObject.addProperty("varialbe2", registro);
+        jsonObject.addProperty("variable2", registro);
         jsonObject.addProperty("valor2", "1");
         return jsonObject;
     }
