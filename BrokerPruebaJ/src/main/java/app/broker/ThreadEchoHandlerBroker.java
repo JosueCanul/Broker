@@ -85,7 +85,16 @@ public class ThreadEchoHandlerBroker implements Runnable{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                out.println(tehBrokerServerRequest.getResponse());
+                
+                String serverRespuesta = tehBrokerServerRequest.getResponse();
+                System.out.println("Esta es la respuesta del server para cuando has votado : ");
+                System.out.println(serverRespuesta);
+                JsonObject repuestaVotar = brResponse.ejecutar(
+                    gson.fromJson(serverRespuesta, JsonObject.class)
+                    );
+                System.out.println(repuestaVotar);
+                out.println(repuestaVotar);
+                thread.interrupt();
             } else if (typeService.equals("contar")) {
                 System.out.println("Preparando la petición de contar del Broker para mandarlo al server");
 
@@ -94,6 +103,7 @@ public class ThreadEchoHandlerBroker implements Runnable{
                                 this.sever.get("valor1").getAsString(),
                                 brResources.contar());
                 Thread thread = new Thread(tehBrokerServerRequestContar);
+
                 System.out.println("Iniciando Hilo");
                 thread.start();
                 try {
