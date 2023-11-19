@@ -62,7 +62,7 @@ public class Broker {
         upBrokerForPetitions();*/
     }
 
-    public void upBrokerForPetitions(){
+    public void upBrokerForPetitions() {
         try {
             this.serverSocket = new ServerSocket(this.portBroker);
 
@@ -78,6 +78,12 @@ public class Broker {
                 Thread threadRequestBroker = new Thread(threadEchoHandlerServer);
 
                 threadRequestBroker.start();
+                try {
+                    threadRequestBroker.join();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
     } catch (IOException e) {
