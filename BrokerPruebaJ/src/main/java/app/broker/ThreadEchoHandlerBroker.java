@@ -51,11 +51,14 @@ public class ThreadEchoHandlerBroker implements Runnable{
 
             typeService = processRequest(typeService, requestJsonFromClient);
             System.out.println("Procesado = " + typeService);
-            //Esto debe de ser un meno
+            /*
+             * Menu del broker
+             */
             if(typeService.equals("registrar")){
 
                 this.serversServices.add(requestJsonFromClient);
                 System.out.println("Se realizo con exito el registro");
+                out.println(brResponse.registrar());
 
             } else if (typeService.equals("votar")) {
                 System.out.println("Preparando proceso de votar por parte del broker....");

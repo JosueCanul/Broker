@@ -22,4 +22,13 @@ public class BrokerResponseResources {
         System.out.println(jsonObject);
         return  jsonObject;
     }
+
+    public JsonObject registrar(){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("servicio", "registrar");
+        jsonObject.addProperty("respuestas", 1);
+        jsonObject.addProperty("respuesta1", "identificador");
+        jsonObject.addProperty("valor1", 1);
+        return jsonObject;
+    }
 }
