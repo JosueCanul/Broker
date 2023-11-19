@@ -41,17 +41,17 @@ public class ControladorVotaciones implements ActionListener{
         if(e.getSource() == votacionesVista.votarBtnProducto1){
             JsonObject respuestaServer = cliente.sendMessageVotar("primero");
             Integer votaciones = respuestaServer.get("valor2").getAsInt();
-            actualizarContadorEnPantalla(8, this.votacionesVista.producto1ContadorLabel);
+            actualizarContadorEnPantalla(votaciones, this.votacionesVista.producto1ContadorLabel);
         }
         if(e.getSource() == votacionesVista.votarBtnProducto2){
             JsonObject respuestaServer = cliente.sendMessageVotar("segundo");
             Integer votaciones = respuestaServer.get("valor2").getAsInt();
-            actualizarContadorEnPantalla(8, this.votacionesVista.producto2ContadorLabel);
+            actualizarContadorEnPantalla(votaciones, this.votacionesVista.producto2ContadorLabel);
         }
         if(e.getSource() == votacionesVista.votarBtnProducto3){
             JsonObject respuestaServer = cliente.sendMessageVotar("tercero");
             Integer votaciones = respuestaServer.get("valor2").getAsInt();
-            actualizarContadorEnPantalla(8, this.votacionesVista.producto3ContadorLabel);
+            actualizarContadorEnPantalla(votaciones, this.votacionesVista.producto3ContadorLabel);
         }
         if(e.getSource() == votacionesVista.verGraficasBtn){
             productos = gson.fromJson(cliente.contarProductos(), JsonObject.class);
