@@ -60,10 +60,18 @@ public class ThreadEchoHandlerBroker implements Runnable{
             } else if (typeService.equals("votar")) {
                 System.out.println("Preparando proceso de votar por parte del broker....");
                 // Aquí hacer la transformación para el cliente
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("servicio", "votar");
+                jsonObject.addProperty("variables", 1);
+                jsonObject.addProperty("variable1", requestJsonFromClient.get("variable2").getAsString());
+                jsonObject.addProperty("valor1", 1);
+                System.out.println("la solicitud votar para el server es: " + jsonObject);
+
                 TEHBrokerServerRequest tehBrokerServerRequest =
                         new TEHBrokerServerRequest(this.sever.get("valor2").getAsInt(),
-                                this.sever.get("valor1").getAsString(), requestJsonFromClient);
+                                this.sever.get("valor1").getAsString(), jsonObject);
                 System.out.println("...");
+                
                 /*
                 Aquí se espera a que el hilo broker-server termine
                 * */
@@ -77,7 +85,7 @@ public class ThreadEchoHandlerBroker implements Runnable{
                 out.println(tehBrokerServerRequest.getResponse());
             } else if (typeService.equals("contar")) {
                 System.out.println("Preparando la petición de contar del Broker para mandarlo al server");
-                System.out.println("ey");
+
                 TEHBrokerServerRequest tehBrokerServerRequestContar =
                         new TEHBrokerServerRequest(this.sever.get("valor2").getAsInt(),
                                 this.sever.get("valor1").getAsString(),

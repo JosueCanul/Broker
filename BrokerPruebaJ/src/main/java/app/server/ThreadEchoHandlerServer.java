@@ -63,6 +63,16 @@ public class ThreadEchoHandlerServer implements Runnable {
                     System.out.println(responseToBroker);
                     break;
                 case "votar":
+                String productoParaVotar = requestBroker.get("variable1").getAsString();
+                    System.out.println(productoParaVotar);
+                    controllerServer.agregarVotoProducto(productoParaVotar);
+                    responseToBroker.addProperty("servicio", "votar");
+                    responseToBroker.addProperty("respuestas", 1);
+                    responseToBroker.addProperty("respuesta1", productoParaVotar);
+                    responseToBroker.addProperty("valor1", controllerServer.contarVotosProducto(productoParaVotar));
+
+
+                    System.out.println(responseToBroker);
                     break;
                 case "registrar":
                     break;

@@ -20,34 +20,28 @@ public class Cliente {
     }
 
     public JsonObject sendMessageVotar(String registro) {
-        /*AtomicReference<JsonObject> respuestaBroker = null;
-        SwingUtilities.invokeLater(() -> {
-
-
+        JsonObject response = null;
+        try (Socket socket = new Socket(this.ip, this.port)){
+            /*
+             * Este metodo solo manda el servicio directo al server
+             * */
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             JsonObject message = this.resourcesClientes.votar(registro);
+            System.out.println("json votar: " + message);
             Gson gson = new Gson();
             out.println(gson.toJson(message));
+            //AQUI ES EL PROBLEMAAA
+            String respuestaServidor = in.readLine();
 
-            try {
-                String respuestaServidor = in.readLine();
-                System.out.println(respuestaServidor);
-                respuestaBroker.set(gson.fromJson(respuestaServidor, JsonObject.class));
-                clientSocket.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                //try {
-                    //if (clientSocket != null && !clientSocket.isClosed()) {
-                      //  clientSocket.close();
-                    //}
-                //} catch (IOException e) {
-                    //System.out.println(e.getMessage());
-                //}
-            }
-        });
-        return respuestaBroker.get();
-        */
-        return null;
+            System.out.println("Respuesta del broker al cliente para votar");
+            System.out.println(respuestaServidor);
+            response = gson.fromJson(respuestaServidor, JsonObject.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 
     public String contarProductos() {
