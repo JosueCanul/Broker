@@ -31,19 +31,18 @@ public class Producto {
     public int contarVotos(){
         int conteo_votos = 0;
         
-        try ( Scanner br = new Scanner(new FileReader(archivo)) ) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo)) ) {
             String linea;
 
             //contamos cada linea del archivo como voto
-            while (br.hasNext()) {
-                br.next();
+            while ((linea = br.readLine()) != null) {
                 conteo_votos++;
             }
-            br.close();
+
+            System.out.println("El archivo tiene " + conteo_votos + " líneas.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return conteo_votos;
     }
 

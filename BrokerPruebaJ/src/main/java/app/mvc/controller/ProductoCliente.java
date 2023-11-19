@@ -23,6 +23,8 @@ public class ProductoCliente {
         this.votos = votos;
     }
     
+
+    // ESTA NOOOOOO, usar la de Producto.java
     public int contarVotos(){
         int conteo_votos = 0;
         

@@ -74,7 +74,7 @@ public class Server {
 
 
     public static void main(String[] args) {
-        Server server = new Server(1013, "192.168.10.103", "192.168.10.101", 7777);
+        Server server = new Server(1013, "127.0.0.1", "127.0.0.1", 7777);
         server.upServer();
     }
 }
