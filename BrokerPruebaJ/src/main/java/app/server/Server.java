@@ -74,7 +74,11 @@ public class Server {
 
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         Server server = new Server(1013, "192.168.10.105", "192.168.10.101", 7777);
+=======
+        Server server = new Server(1013, "", "192.168.250.84", 7777);
+>>>>>>> 45e6240d34ed1c9107a296fd5441db0ae2dc71ba
         //server.registerServer(6666);
         server.upServer();
     }
