@@ -13,7 +13,6 @@ public class MVC {
         Cliente cliente = new Cliente("127.0.0.1", 7777);
         VotacionesVista votacionesVista = new VotacionesVista();
         ControladorVotaciones controladorVotaciones = new ControladorVotaciones(votacionesVista, cliente);
-        System.out.println("Hello");
         votacionesVista.setVisible(true);
     }
 }
