@@ -13,15 +13,18 @@ import java.net.Socket;
 public class Server {
 
     private Integer port;
+    
+    private String ipServer;
 
     private  String ipBroker;
 
     private int portBroker;
 
-    public Server(Integer port, String ipBroker, int portBroker) {
+    public Server(Integer port, String ipServer, String ipBroker, int portBroker) {
         this.port = port;
         this.ipBroker = ipBroker;
         this.portBroker = portBroker;
+        this.ipServer = ipServer;
     }
 
     public void registerServer(){
@@ -30,9 +33,12 @@ public class Server {
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     brokerSocket.getInputStream()
             ));
-            JsonObject requestResgisterJsonObject = JsonRequestsBroker.registerRequest();
+
+
+            JsonObject requestResgisterJsonObject = JsonRequestsBroker.registerRequest(this.ipServer);
             out.println(requestResgisterJsonObject);
             String response = in.readLine();
+            System.out.println(response);
         } catch (UnknownHostException e) {
             System.out.println("Connection to broker fail : " + e.getCause());
         } catch (IOException e) {
@@ -49,6 +55,7 @@ public class Server {
                 Socket petitionSocket = serverSocket.accept();
 
                 ThreadEchoHandlerServer threadEchoHandlerServer =
+
                         new ThreadEchoHandlerServer(petitionSocket);
 
                 Thread threadRequestServer = new Thread(threadEchoHandlerServer);

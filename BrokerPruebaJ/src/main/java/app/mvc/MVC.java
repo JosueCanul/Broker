@@ -3,9 +3,6 @@ package app.mvc;
 
 import app.mvc.controller.ControladorVotaciones;
 import app.mvc.view.VotacionesVista;
-import com.google.gson.JsonObject;
-
-import java.io.File;
 
 public class MVC {
 
