@@ -1,7 +1,11 @@
 package app.server;
 
+
+import app.mvc.model.Bitacora;
 import app.server.controllerServer.ControllerServer;
 import app.server.model.Producto;
+import app.server.model.bitacora.BitacoraDAO;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -10,9 +14,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.function.BiConsumer;
 
 public class ThreadEchoHandlerServer implements Runnable {
     private Socket sockerServer;
+    private BitacoraDAO bitacoraDAO = new BitacoraDAO();
 
     public ThreadEchoHandlerServer(Socket socketServer) {
         this.sockerServer = socketServer;
@@ -75,6 +81,14 @@ public class ThreadEchoHandlerServer implements Runnable {
                     System.out.println(responseToBroker);
                     break;
                 case "registrar":
+                System.out.println("Entraste a registrar tu voto");
+                bitacoraDAO.escribirBitadora(requestBroker);
+
+
+                responseToBroker.addProperty("servicio", "registrar");
+                responseToBroker.addProperty("respuestas", 1);
+                responseToBroker.addProperty("respuesta1", "eventos");
+                responseToBroker.addProperty("valor1", bitacoraDAO.contarBitadora());
                     break;
                 case "listar":
 

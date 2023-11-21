@@ -28,38 +28,6 @@ public class Broker {
     public Broker(int portBroker){
         this.portBroker = portBroker;
         this.servers = new ArrayList<>();
-        /*
-        * Las siguientes sentiencas inician el servidor puerto por el cual se estará
-        * escuchan y los servidores deben de solicitar unirse mandando un Json
-        * con la clave de "register" para su llave "servicio".
-        * Por cada solicitud se creara un hilo el cual contendrás su input y registrara si el correspondiente tiene
-        * el formato solicitado. Esto haciendolo en forma de hilos
-
-
-            this.serverSocket = new ServerSocket(this.portBroker);
-            this.serverSocket.setSoTimeout(100);
-
-            while (!this.serverSocket.isClosed()){
-                try {
-                    Socket socketServer = this.serverSocket.accept();
-                    ThreadEchoHandlerBroker threadEchoHandlerBroker = new ThreadEchoHandlerBroker(socketServer, serversServices);
-                    Thread thread = new Thread(threadEchoHandlerBroker);
-                    thread.start();
-                } catch (SocketTimeoutException e){
-                    System.out.println("Tiempo de espera agotado");
-                    this.serverSocket.close();
-                }
-
-            }
-            this.serverSocket.close();
-        }catch (SocketTimeoutException e){
-            System.out.println("Nothing request");
-        } catch (SocketException e) {
-            System.out.println("No se pudo iniciar el socket");
-        } catch (IOException e) {
-            System.out.println("Algo falló en el I/O");
-        }
-        upBrokerForPetitions();*/
     }
 
     public void upBrokerForPetitions() {
@@ -81,7 +49,7 @@ public class Broker {
                 try {
                     threadRequestBroker.join();
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
+                    
                     e.printStackTrace();
                 }
             }

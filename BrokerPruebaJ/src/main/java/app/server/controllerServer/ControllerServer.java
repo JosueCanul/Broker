@@ -62,4 +62,8 @@ public class ControllerServer {
         }
 
     }
+
+    public void findAllVotos(){
+        
+    }
 }

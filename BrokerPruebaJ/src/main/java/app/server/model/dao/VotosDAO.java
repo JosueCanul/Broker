@@ -5,7 +5,9 @@ package app.server.model.dao;
 
 import app.server.model.GestorFecha;
 
+import java.awt.List;
 import java.io.*;
+import java.time.LocalDateTime;
 
 public class VotosDAO {
    
@@ -38,8 +40,6 @@ public class VotosDAO {
         }
     }
     
-    
-   
 
    
 }

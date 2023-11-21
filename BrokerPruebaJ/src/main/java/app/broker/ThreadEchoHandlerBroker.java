@@ -33,34 +33,52 @@ public class ThreadEchoHandlerBroker implements Runnable{
             Gson gson = new Gson();
             JsonObject requestJsonFromClient = gson.fromJson(request, JsonObject.class);
 
-            /*int portServer = 1016;
-            String ipServer = "127.0.0.1";
-            if (!this.sever.isEmpty()){
-                ipServer = this.sever.get("valor1").getAsString();
-                portServer = this.sever.get("valor2").getAsInt();
-            }*/
-
             System.out.println("Llegó la peticion del cliente al broker");
             System.out.println("Esta fue :" + request);
 
-            /*
-            * Vemos el servicio que solicita el usuario
-            * */
             String typeService = requestJsonFromClient.get("servicio").getAsString();
             System.out.println("El servicio del cliente fue : " + typeService);
 
             typeService = processRequest(typeService, requestJsonFromClient);
             System.out.println("Procesado = " + typeService);
-            /*
-             * Menu del broker
-             */
-            if(typeService.equals("registrar")){
+
+            if(typeService.equals("registrar") &&  requestJsonFromClient.get("servicio").getAsString().equals("ejecutar")){
+                System.out.println("Has solicitado al broker registrar una votación");
+                System.out.println("Lo que le estoy pasando al hilo : ");
+                System.out.println(requestJsonFromClient);
+                TEHBrokerServerRequest tehBrokerServerRequestContar =
+                        new TEHBrokerServerRequest(this.sever.get("valor2").getAsInt(),
+                                this.sever.get("valor1").getAsString(),
+                                brResources.registrar(requestJsonFromClient));
+                
+                Thread thread = new Thread(tehBrokerServerRequestContar);
+
+                System.out.println("Iniciando Hilo");
+                thread.start();
+                try {
+                    thread.join();
+                }catch (Exception e){
+                    System.out.println("Algo paso en el hilo");
+                }
+                System.out.println("Esta es la respuesta del servidor");
+                String respuestaServer = tehBrokerServerRequestContar.getResponse();
+                System.out.println(respuestaServer);
+
+                JsonObject respuestaBrokerCliente = brResponse.ejecutar(
+                        gson.fromJson(respuestaServer, JsonObject.class)
+                );
+                System.out.println("Respuesta para el cliente" + respuestaBrokerCliente);
+                out.println(respuestaBrokerCliente);
+                thread.interrupt();
+
+            }
+            else if(typeService.equals("registrar")){
 
                 this.serversServices.add(requestJsonFromClient);
                 System.out.println("Se realizo con exito el registro");
                 out.println(brResponse.registrar());
 
-            } else if (typeService.equals("votar")) {
+            } else if (typeService.equals("votar")) { //VOTAR-------------------------------------------------------------------------------
                 System.out.println("Preparando proceso de votar por parte del broker....");
                 // Aquí hacer la transformación para el cliente
                 JsonObject votarRequestJson = new JsonObject();
@@ -95,7 +113,7 @@ public class ThreadEchoHandlerBroker implements Runnable{
                 System.out.println(repuestaVotar);
                 out.println(repuestaVotar);
                 thread.interrupt();
-            } else if (typeService.equals("contar")) {
+            } else if (typeService.equals("contar")) {//CONTAR___________________________________________________________
                 System.out.println("Preparando la petición de contar del Broker para mandarlo al server");
 
                 TEHBrokerServerRequest tehBrokerServerRequestContar =
