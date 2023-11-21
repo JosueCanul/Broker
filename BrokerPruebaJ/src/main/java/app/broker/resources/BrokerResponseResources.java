@@ -1,5 +1,8 @@
 package app.broker.resources;
 
+
+import java.util.List;
+
 import com.google.gson.JsonObject;
 
 public class BrokerResponseResources {
@@ -30,5 +33,17 @@ public class BrokerResponseResources {
         jsonObject.addProperty("respuesta1", "identificador");
         jsonObject.addProperty("valor1", 1);
         return jsonObject;
+    }
+
+    public JsonObject listarServers(List<JsonObject> servers){
+        JsonObject resonseServers = new JsonObject();
+        resonseServers.addProperty("servicio", "listar");
+        resonseServers.addProperty("respuestas", servers.size());
+        for (int i = 0; i < servers.size(); i++) {
+            JsonObject currentServer = servers.get(i);
+            resonseServers.addProperty("respuesta" + (i+1), currentServer.get("valor3").getAsString());
+            resonseServers.addProperty("valor" + (i+1), currentServer.get("valor1").getAsString());
+        }
+        return resonseServers;
     }
 }

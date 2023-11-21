@@ -92,6 +92,28 @@ public class Cliente {
             e.printStackTrace();
         }
     }
+    
+    public void listarServers(){
+        JsonObject response = null;
+        try (Socket socket = new Socket(this.ip, this.port)) {
+            /*
+             * Este metodo solo manda el servicio directo al server
+             */
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Gson gson = new Gson();
+
+            out.println(gson.toJson(this.resourcesClientes.listarServers()));
+            // AQUI ES EL PROBLEMAAA
+            String respuestaBroker = in.readLine();
+
+            System.out.println("Respuesta del broker al cliente para listar servers");
+            System.out.println(respuestaBroker);
+            response = gson.fromJson(respuestaBroker, JsonObject.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public JsonObject registrar(String nomProd){
@@ -129,6 +151,6 @@ public class Cliente {
 
     public static void main(String[] args) {
         Cliente cliente = new Cliente("127.0.0.1", 7777);
-        cliente.listarVotos();
+        cliente.listarServers();
     }
 }

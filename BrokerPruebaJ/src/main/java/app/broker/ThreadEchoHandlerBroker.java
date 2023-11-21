@@ -163,6 +163,10 @@ public class ThreadEchoHandlerBroker implements Runnable{
                 System.out.println("Respuesta para el cliente" + respuestaBrokerCliente);
                 out.println(respuestaBrokerCliente);
                 thread.interrupt();
+            }else if(typeService.equals("listar")){
+                System.out.println("Se realizo con exito el registro");
+                out.println(brResponse.listarServers(this.serversServices));
+
             }
 
             if (!this.serversServices.isEmpty()) this.sever = serversServices.get(0);
