@@ -71,6 +71,30 @@ public class ThreadEchoHandlerBroker implements Runnable{
                 out.println(respuestaBrokerCliente);
                 thread.interrupt();
 
+            }else if (typeService.equals("listar") &&  requestJsonFromClient.get("servicio").getAsString().equals("ejecutar")) {
+                System.out.println("Has solicitado listar para el server :");
+                  TEHBrokerServerRequest tehBrokerServerRequestContar =
+                        new TEHBrokerServerRequest(this.sever.get("valor2").getAsInt(),
+                                this.sever.get("valor1").getAsString(),
+                                brResources.listar());
+                
+                Thread thread = new Thread(tehBrokerServerRequestContar);
+                thread.start();
+                try {
+                    thread.join();
+                }catch (Exception e){
+                    System.out.println("Algo paso en el hilo");
+                }
+                System.out.println("Esta es la respuesta del servidor");
+                String respuestaServer = tehBrokerServerRequestContar.getResponse();
+                System.out.println(respuestaServer);
+
+                JsonObject respuestaBrokerCliente = brResponse.ejecutar(
+                        gson.fromJson(respuestaServer, JsonObject.class)
+                );
+                System.out.println("Respuesta para el cliente" + respuestaBrokerCliente);
+                out.println(respuestaBrokerCliente);
+                thread.interrupt();
             }
             else if(typeService.equals("registrar")){
 

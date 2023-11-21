@@ -23,4 +23,13 @@ public class ResourcesClientes {
         jsonObject.addProperty("valor1", "contar");
         return jsonObject;
     }
+
+    public JsonObject listar(){
+         JsonObject jsonObject  = new JsonObject();
+        jsonObject.addProperty("servicio", "ejecutar");
+        jsonObject.addProperty("variables", 1);
+        jsonObject.addProperty("variable1", "servicio");
+        jsonObject.addProperty("valor1", "listar");
+        return jsonObject;
+    }
 }

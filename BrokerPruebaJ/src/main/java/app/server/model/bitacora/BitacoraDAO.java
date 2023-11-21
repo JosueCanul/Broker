@@ -58,5 +58,18 @@ public class BitacoraDAO {
         return cantVotos;
     }
 
+    public JsonObject listarFormato(){
+        List<String> listaString = leerBitacora();
+        JsonObject json = new JsonObject();
+        json.addProperty("servicio", "listar");
+        json.addProperty("respuestas", contarBitadora());
+        for (int i = 0; i < listaString.size(); i++) {
+            json.addProperty("respuesta" + (i+1), "evento");
+            json.addProperty("valor" + (i+1), listaString.get(i));
+        }
+        System.out.println("Respuesta para el broker");
+        System.out.println(json);
+        return json;
+    }
 
 }

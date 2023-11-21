@@ -9,6 +9,7 @@ import app.server.model.bitacora.BitacoraDAO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -91,7 +92,7 @@ public class ThreadEchoHandlerServer implements Runnable {
                 responseToBroker.addProperty("valor1", bitacoraDAO.contarBitadora());
                     break;
                 case "listar":
-
+                responseToBroker = bitacoraDAO.listarFormato();
                     break;
                 default:
                     break;

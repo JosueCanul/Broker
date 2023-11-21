@@ -29,4 +29,11 @@ public class BrokerRequestResources {
         System.out.println(jsonObject);
         return jsonObject;
     }
+
+    public JsonObject listar(){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("servicio", "listar");
+        jsonObject.addProperty("variables", 0);
+        return jsonObject;
+    }
 }
